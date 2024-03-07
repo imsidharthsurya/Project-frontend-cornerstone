@@ -1,25 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import AdminPage from "./components/AdminPage";
+import CommanUser from "./components/CommanUser";
+import Layout from "./components/Layout";
+import {createBrowserRouter,RouterProvider,Link} from "react-router-dom"
+import { Provider } from "react-redux";
+import store from "./utils/store";
+import Login from "./components/Login";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Layout />,
+    children: [
+      {
+        path:"/",
+        element:<Login/>
+      },
+      {
+        path: "admin",
+        element: <AdminPage />
+      },
+      {
+        path: "user",
+        element: <CommanUser />
+      }
+    ],
+  },
+]);
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <Provider store={store}>
+    <div className="">
+      <RouterProvider router={router}/>
     </div>
+    </Provider>
   );
 }
+
+
 
 export default App;
